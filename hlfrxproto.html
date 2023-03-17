@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HalfLife RX</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        input[type="search"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>HalfLife RX</h1>
+    <input type="search" id="searchInput" placeholder="Search for a drug...">
+    <ul id="drugList">
+        <!-- The drug list will be populated here -->
+    </ul>
+
+    <script>
+        // Sample drug data
+        const drugs = [
+            { name: "Aspirin", halfLife: "3.2 hours", absorptionTime: "30 minutes", effectiveTime: "4 hours" },
+            { name: "Ibuprofen", halfLife: "2 hours", absorptionTime: "45 minutes", effectiveTime: "6 hours" },
+            { name: "Paracetamol", halfLife: "1-4 hours", absorptionTime: "30-60 minutes", effectiveTime: "4-6 hours" },
+        ];
+
+        const drugListElement = document.getElementById("drugList");
+        const searchInputElement = document.getElementById("searchInput");
+
+        function renderDrugs(drugList) {
+            drugListElement.innerHTML = "";
+            drugList.forEach(drug => {
+                const drugItem = document.createElement("li");
+                drugItem.innerText = `${drug.name} - Half-life: ${drug.halfLife}, Absorption Time: ${drug.absorptionTime}, Effective Time: ${drug.effectiveTime}`;
+                drugListElement.appendChild(drugItem);
+            });
+        }
+
+        searchInputElement.addEventListener("input", (event) => {
+            const searchTerm = event.target.value.toLowerCase();
+            const filteredDrugs = drugs.filter(drug => drug.name.toLowerCase().includes(searchTerm));
+            renderDrugs(filteredDrugs);
+        });
+
+        // Initialize the drug list
+        renderDrugs(drugs);
+    </script>
+</body>
+</html>
